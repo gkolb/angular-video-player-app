@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { VideoListComponent } from './video-list/video-list.component';
+import { VideoService } from './services/video/video.service';
 
 
 @NgModule({
@@ -16,7 +17,7 @@ import { VideoListComponent } from './video-list/video-list.component';
   imports: [
     BrowserModule
   ],
-  providers: [],
+  providers: [VideoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Video } from './video';
+import { Video } from './models/video';
 
 export const VIDEOS: Video[] =  [
   {
