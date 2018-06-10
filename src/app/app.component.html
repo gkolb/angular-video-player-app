@@ -4,10 +4,9 @@
     Welcome to {{ title }}!
   </h1>
 </div>
-<app-video-player></app-video-player>
-<div *ngIf="videos$ | async as videos">
-  <app-video-list [videos]='videos'></app-video-list>
-</div>
+<app-video-player [selectedVideo]='selectedVideo'></app-video-player>
+<app-video-list [videos]='videos' (onSelect)='onSelect($event)'></app-video-list>
+
 
 
 

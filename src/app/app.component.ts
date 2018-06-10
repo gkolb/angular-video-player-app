@@ -10,11 +10,18 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'HLS Video Player';
-  videos$: Observable<Video[]>;
+  videos: Video[];
+  selectedVideo: Video;
 
   constructor(private videoService: VideoService) { }
 
+  onSelect(video: Video): void {
+    this.selectedVideo = video;
+    console.log(video)
+  }
+
   ngOnInit() {
-    this.videos$ = this.videoService.getVideos()
+    this.videos = this.videoService.getVideos();
+    this.selectedVideo = this.videos[0];
   }
 }
