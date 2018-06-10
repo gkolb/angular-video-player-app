@@ -5,6 +5,9 @@
   </h1>
 </div>
 <app-video-player></app-video-player>
-<app-video-list></app-video-list>
+<div *ngIf="videos$ | async as videos">
+  <app-video-list [videos]='videos'></app-video-list>
+</div>
+
 
 

@@ -9,7 +9,7 @@ export class VideoService {
   constructor() { }
 
   getVideos(): Observable<Video[]> {
-    return Observable.create(VIDEOS);
+    return Observable.of(VIDEOS);
   }
 
 }
