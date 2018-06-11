@@ -7,6 +7,6 @@
 <ul class="videos">
   <li *ngFor="let video of videos"
     (click)="onSelect.emit(video)">
-    {{video.title}}
+    <button mat-button>{{video.title}}</button>
   </li>
 </ul>
