@@ -10,9 +10,6 @@ import { Video } from '../models/video'
 export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
   @Input() selectedVideo: Video;
   @ViewChild('videoPlayer') videoPlayerElement: ElementRef;
-  // constructor(private elementRef: ElementRef) { 
-  //   this.elementRef.nativeElement.querySelector('videoPlayer');
-  // }
 
   updateVideo(): void {
     console.log(this.videoPlayerElement)
@@ -30,13 +27,9 @@ export class VideoPlayerComponent implements OnInit, AfterViewInit, OnChanges {
     }
   }
 
-  ngOnInit() {
-    // this.videoElement = <HTMLVideoElement> document.getElementById('video');
-    // this.updateVideo();
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
-    // this.videoElement = <HTMLVideoElement> document.getElementById('video');
     this.updateVideo();
   }
 
