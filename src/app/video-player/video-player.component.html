@@ -1,9 +1,17 @@
-<p>
-  video-player works!
-</p>
 <div *ngIf="selectedVideo">
-  <div>{{selectedVideo.title}}</div>
+  <h1 style="text-align:center">{{selectedVideo.title}}</h1>
 </div>
 <div id="player">
-  <video id="videoPlayer" controls #videoPlayer></video>
+  <video id="videoPlayer" #videoPlayer></video>
+      <div class="progress">
+          <progress (click)=updateProgress($event) id="progress" min="0" max="100" value={{progress}}>
+            <span id="progress-bar"></span>
+          </progress>
+        </div>
+      <div class="controls">
+        <button mat-raised-button color="primary" id="play-pause" type="button" (click)=togglePlay()>{{playPause}}</button>
+        <div id="duration">{{currentTime | minuteSeconds}}/{{duration | minuteSeconds}}</div>
+      </div>
 </div>
+
+<!-- <i className={`fa fa-${this.state.playPause}`}></i> -->

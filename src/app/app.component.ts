@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
 
   onSelect(video: Video): void {
     this.selectedVideo = video;
-    console.log(video)
   }
 
   ngOnInit() {

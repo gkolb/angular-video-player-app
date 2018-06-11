@@ -12,7 +12,12 @@ export class VideoListComponent implements OnInit {
 
   constructor() { }
 
+  log() {
+    console.log(this);
+  }
+
   ngOnInit() {
+    this.log();
   }
 
 }

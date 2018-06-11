@@ -1,0 +1,8 @@
+li {
+  display: inline;
+}
+
+.table {
+  display: table;
+  margin: 0 auto;
+}

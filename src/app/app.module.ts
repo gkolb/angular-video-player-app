@@ -8,20 +8,24 @@ import { AppComponent } from './app.component';
 import { VideoPlayerComponent } from './video-player/video-player.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { VideoService } from './services/video/video.service';
+import { MinuteSecondsPipe } from './pipes/minuteSecond.pipe';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     VideoPlayerComponent,
-    VideoListComponent
+    VideoListComponent,
+    MinuteSecondsPipe
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule
   ],
-  providers: [VideoService],
+  providers: [
+    VideoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

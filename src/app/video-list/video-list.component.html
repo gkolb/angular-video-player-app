@@ -1,12 +1,8 @@
-<p>
-  video-list works!
-</p>
-<!-- <div *ngFor='let video of videos'>
-  <div>{{video.title}}</div>
-</div> -->
-<ul class="videos">
-  <li *ngFor="let video of videos"
-    (click)="onSelect.emit(video)">
-    <button mat-button>{{video.title}}</button>
-  </li>
-</ul>
+<div class='table'>
+  <ul class="videos">
+    <li *ngFor="let video of videos"
+      (click)="onSelect.emit(video)">
+      <button mat-raised-button>{{video.title}}</button>
+    </li>
+  </ul>
+</div>
