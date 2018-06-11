@@ -1,17 +1,15 @@
 <div *ngIf="selectedVideo">
-  <h1 style="text-align:center">{{selectedVideo.title}}</h1>
+  <h1 style="text-align:center">{{videoPlayerService.title}}</h1>
 </div>
 <div id="player">
   <video id="videoPlayer" #videoPlayer></video>
       <div class="progress">
-          <progress (click)=updateProgress($event) id="progress" min="0" max="100" value={{progress}}>
+          <progress (click)=videoPlayerService.updateProgress($event) id="progress" min="0" max="100" value={{videoPlayerService.progress}}>
             <span id="progress-bar"></span>
           </progress>
         </div>
       <div class="controls">
-        <button mat-raised-button color="primary" id="play-pause" type="button" (click)=togglePlay()>{{playPause}}</button>
-        <div id="duration">{{currentTime | minuteSeconds}}/{{duration | minuteSeconds}}</div>
+        <button mat-raised-button color="primary" id="play-pause" type="button" (click)=videoPlayerService.togglePlay()>{{videoPlayerService.playPause}}</button>
+        <div id="duration">{{videoPlayerService.currentTime | minuteSeconds}}/{{videoPlayerService.duration | minuteSeconds}}</div>
       </div>
 </div>
-
-<!-- <i className={`fa fa-${this.state.playPause}`}></i> -->

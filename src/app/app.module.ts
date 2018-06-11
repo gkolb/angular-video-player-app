@@ -9,6 +9,7 @@ import { VideoPlayerComponent } from './video-player/video-player.component';
 import { VideoListComponent } from './video-list/video-list.component';
 import { VideoService } from './services/video/video.service';
 import { MinuteSecondsPipe } from './pipes/minuteSecond.pipe';
+import { VideoPlayerService } from './services/video-player/video-player.service';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MinuteSecondsPipe } from './pipes/minuteSecond.pipe';
     MatButtonModule
   ],
   providers: [
-    VideoService
+    VideoService,
+    VideoPlayerService
   ],
   bootstrap: [AppComponent]
 })
