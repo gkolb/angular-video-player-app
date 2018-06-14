@@ -2,7 +2,7 @@
   <h1 style="text-align:center">{{selectedVideo.title}}</h1>
 </div>
 <div id="player">
-  <video id="videoPlayer" #videoPlayer></video>
+  <video id="videoPlayer" [selectedVideo]="selectedVideo" #videoPlayer controls loadVideo></video>
       <div class="progress">
           <progress (click)=updateProgress($event) id="progress" min="0" max="100" value={{progress}}>
             <span id="progress-bar"></span>
