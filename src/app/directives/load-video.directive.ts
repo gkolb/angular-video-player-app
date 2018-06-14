@@ -2,21 +2,24 @@ import { Directive, ElementRef, Input, OnInit, OnChanges, HostListener } from '@
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store'
 
-import * as fromVideos from '../reducers/videos/videos.reducer'
+import * as fromVideos from '../reducers/videos/videos.reducer';
+import * as fromSelectVideoInfo from '../reducers/selected-video-info/selected-video-info.reducer';
 import * as Hls from 'hls.js';
 import { Video } from '../models/video';
 import { SelectVideo } from '../actions/videos.actions';
+import { SelectVideoInfoUpdateCurrentTime, SelectVideoInfoUpdateDuration } from '../actions/select-video-info.actions';
 
 @Directive({
   selector: '[loadVideo]'
 })
-export class LoadVideoDirective implements OnInit {
+export class LoadVideoDirective implements OnInit, OnChanges {
 
   // selectedVideo$: Observable<Video> = this.store.pipe(select(fromVideos.getSelectedVideo));
   // selectedVideoUrl: String = this.selectedVideo$.subscribe((selectedVideo) => selectedVideo.url);
+  // selectedVideoInfo$: Observable<fromSelectVideoInfo.State> = this.store.pipe(select(fromSelectVideoInfo.getSelectedVideoInfo));
   @Input() selectedVideo: Video;
 
-  constructor(private store: Store<fromVideos.State>, private el: ElementRef) { }
+  constructor(private store: Store<fromSelectVideoInfo.State>, private el: ElementRef) { }
 
   duration: number;
   currentTime: number;
@@ -44,12 +47,15 @@ export class LoadVideoDirective implements OnInit {
   }
 
   @HostListener('timeupdate') onTimeChange() {
-    this.currentTime = Math.floor(this.el.nativeElement.currentTime);
-    console.log('timechange', this);
+    let currentTime = Math.floor(this.el.nativeElement.currentTime);
+    console.log('currentTime', currentTime);
+    this.store.dispatch(new SelectVideoInfoUpdateCurrentTime(currentTime));
   }
   
   @HostListener('durationchange') onDurationChange() {
-    this.duration = Math.floor(this.el.nativeElement.duration);
+    let duration = Math.floor(this.el.nativeElement.duration);
+    console.log('duration event', duration)
+    this.store.dispatch(new SelectVideoInfoUpdateDuration(duration));
   }
   
   // togglePlay() {
@@ -70,8 +76,8 @@ export class LoadVideoDirective implements OnInit {
   // }
 
   ngOnInit() {
-    this.updateVideo();
-    console.log('directive selectedVideo init', this.selectedVideo)
+    // this.updateVideo();
+    // console.log('directive selectedVideo init', this.selectedVideo)
   }
 
   ngOnChanges() {
