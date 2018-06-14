@@ -1,5 +1,20 @@
-<app-video-player [selectedVideo]='selectedVideo'></app-video-player>
-<app-video-list [videos]='videos' (onSelect)='onSelect($event)'></app-video-list>
+<div *ngIf='videos$ | async as videos'>
+<div *ngFor='let video of videos'>{{video.title}}</div>
+</div>
+<div *ngIf='selectedVideo$ | async as selectedVideo2'>
+    <div >{{selectedVideo2.title}}</div>
+</div>
+
+<div *ngIf='selectedVideo$ | async as selectedVideo2'>
+    <app-video-player [selectedVideo]='selectedVideo2'></app-video-player>
+</div>
+
+
+<div *ngIf='videos$ | async as videos'>
+    <app-video-list [videos]='videos' (onSelect)='onSelect($event)'></app-video-list>
+</div>
+
+
 
 
 

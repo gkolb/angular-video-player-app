@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, OnChanges } from '@angular/core';
 import * as Hls from 'hls.js';
-import { Video } from '../models/video'
+import { Video } from '../models/video';
 
 @Component({
   selector: 'app-video-player',

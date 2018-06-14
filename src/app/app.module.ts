@@ -10,6 +10,11 @@ import { VideoListComponent } from './video-list/video-list.component';
 import { VideoService } from './services/video/video.service';
 import { MinuteSecondsPipe } from './pipes/minuteSecond.pipe';
 
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +26,9 @@ import { MinuteSecondsPipe } from './pipes/minuteSecond.pipe';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     VideoService
