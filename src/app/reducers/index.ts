@@ -13,13 +13,10 @@ import * as fromSelectedVideoInfo from './selected-video-info/selected-video-inf
 export interface State {
   videos: fromVideos.State;
   selectedVideoInfo: fromSelectedVideoInfo.State;
-
 }
 
 export const reducers: ActionReducerMap<State> = {
-
   videos: fromVideos.reducer,
-
   selectedVideoInfo: fromSelectedVideoInfo.reducer,
 };
 

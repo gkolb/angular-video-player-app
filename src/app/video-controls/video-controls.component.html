@@ -1,0 +1,9 @@
+<div class="progress">
+  <progress (click)="calculateNewTime($event)" min="0" max="100" value={{progress}} #progressBar>
+    <span id="progress-bar"></span>
+  </progress>
+</div>
+  <div class="controls">
+  <button mat-raised-button color="primary" id="play-pause" type="button" (click)="togglePlay.emit()">{{selectedVideoInfo.isPlaying ? 'Pause' : 'Play'}}</button>
+  <div id="duration">{{selectedVideoInfo.currentTime | minuteSeconds}}/{{selectedVideoInfo.duration | minuteSeconds}}</div>
+</div>

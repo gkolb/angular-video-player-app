@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit, OnChanges, HostListener } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, HostListener, SimpleChange } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store'
 
@@ -8,25 +8,18 @@ import * as Hls from 'hls.js';
 import { Video } from '../models/video';
 import { SelectVideo } from '../actions/videos.actions';
 import { SelectVideoInfoUpdateCurrentTime, SelectVideoInfoUpdateDuration } from '../actions/select-video-info.actions';
+import { State } from '../reducers'
 
 @Directive({
   selector: '[loadVideo]'
 })
-export class LoadVideoDirective implements OnInit, OnChanges {
-
-  // selectedVideo$: Observable<Video> = this.store.pipe(select(fromVideos.getSelectedVideo));
-  // selectedVideoUrl: String = this.selectedVideo$.subscribe((selectedVideo) => selectedVideo.url);
-  // selectedVideoInfo$: Observable<fromSelectVideoInfo.State> = this.store.pipe(select(fromSelectVideoInfo.getSelectedVideoInfo));
+export class LoadVideoDirective implements OnChanges {
   @Input() selectedVideo: Video;
-
+  @Input() selectedVideoInfo: any;
+  
   constructor(private store: Store<fromSelectVideoInfo.State>, private el: ElementRef) { }
 
-  duration: number;
-  currentTime: number;
-  playPause: string;
-  progress: string = "0";
-
-  updateVideo() {
+  updateVideo(): void {
     console.log('loadVideo directive native el', this.el.nativeElement);
     console.log('directive selectedVideo', this.selectedVideo)
     if(Hls.isSupported() && this.el) {
@@ -39,49 +32,46 @@ export class LoadVideoDirective implements OnInit, OnChanges {
         video.pause();
         video.currentTime = "0";
         video.play();
-        // context.playPause='Pause';
       })
-      // this.el.nativeElement.addEventListener('timeupdate', this.handleTimeChange.bind(this));
-      // this.el.nativeElement.addEventListener('durationchange', this.setDuration.bind(this));
     }
   }
 
   @HostListener('timeupdate') onTimeChange() {
     let currentTime = Math.floor(this.el.nativeElement.currentTime);
-    console.log('currentTime', currentTime);
     this.store.dispatch(new SelectVideoInfoUpdateCurrentTime(currentTime));
   }
   
   @HostListener('durationchange') onDurationChange() {
     let duration = Math.floor(this.el.nativeElement.duration);
-    console.log('duration event', duration)
     this.store.dispatch(new SelectVideoInfoUpdateDuration(duration));
   }
-  
-  // togglePlay() {
-  //   const video = this.el.nativeElement;
-  //   const method = video.paused ? 'play' : 'pause';
-  //   this.playPause = video.paused ? 'Pause' : 'Play';
-  //   video[method]();
-  // }
 
-  // updateProgress(e){
-  //   console.log(e)
-  //   const video = this.el.nativeElement;
-  //   const newTime = ((e.clientX - 7) / video.clientWidth) * video.duration;
-  //   if (!isNaN(newTime)) {
-  //     video.currentTime = newTime;
-  //     this.progress = (newTime / this.duration * 100).toString();
-  //   }
-  // }
-
-  ngOnInit() {
-    // this.updateVideo();
-    // console.log('directive selectedVideo init', this.selectedVideo)
+  playPauseVideo(changes: any): void {
+    let oldPlayingValue = changes.selectedVideoInfo.previousValue.isPlaying;
+    let newPlayingValue = changes.selectedVideoInfo.currentValue.isPlaying;
+    let hasChangedPlaying = oldPlayingValue !== newPlayingValue;
+    if (hasChangedPlaying) {
+      let video = this.el.nativeElement;
+      let method = newPlayingValue ? 'play' : 'pause';
+      video[method]();
+    }
   }
 
-  ngOnChanges() {
-    this.updateVideo();
-    console.log('directive selectedVideo onChange', this.selectedVideo);
+  updateVideoTime(): void {
+    let video = this.el.nativeElement;
+    if (Math.floor(video.currentTime) !== this.selectedVideoInfo.currentTime) {
+      video.currentTime = this.selectedVideoInfo.currentTime;
+    }
+  }
+
+  ngOnChanges(changes: any): void {
+    if (changes.selectedVideo) {
+      this.updateVideo();
+    }
+
+    if (changes.selectedVideoInfo && !changes.selectedVideoInfo.firstChange) {
+      this.playPauseVideo(changes);
+      this.updateVideoTime();
+    }
   }
 }

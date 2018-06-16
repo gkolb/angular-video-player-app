@@ -1,0 +1,16 @@
+#duration {
+display:inline-block;
+padding-left: 10px;
+}
+
+#play-pause {
+display: inline-block;
+}
+
+.controls{
+display: table;
+margin: 0 auto;
+}
+progress {
+width: 100%;
+}

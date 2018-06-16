@@ -1,21 +1,18 @@
 import { Action } from '@ngrx/store';
 import * as fromRoot from '../';
-// import { VideosActionTypes, VideosActions } from '../../actions/videos.actions';
 import { SelectVideoInfoActionTypes, SelectVideoInfoActions } from '../../actions/select-video-info.actions';
 
 
 export interface State {
   duration: number;
   currentTime: number;
-  playPause: string;
-  progress: string;
+  isPlaying: boolean;
 }
 
 export const initialState: State = {
   duration: 0,
   currentTime: 0,
-  playPause: 'pause',
-  progress: "0"
+  isPlaying: true,
 };
 
 export function reducer(state = initialState, action: SelectVideoInfoActions): State {
@@ -33,10 +30,16 @@ export function reducer(state = initialState, action: SelectVideoInfoActions): S
       currentTime: action.payload
     }
 
+    case SelectVideoInfoActionTypes.UpdatePlaying:
+    return {
+      ...state, 
+      isPlaying: !state.isPlaying
+    }
+
     default:
       return state;
   }
 }
 
-// export const getSelectedVideoInfo= (state: fromRoot.State) => state.videos.videos;
 export const getSelectedVideoInfo= (state: fromRoot.State) => state.selectedVideoInfo;
+export const getIsPlaying= (state: fromRoot.State) => state.selectedVideoInfo.isPlaying;

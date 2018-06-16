@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 
 export enum SelectVideoInfoActionTypes {
   UpdateDuration = '[SelectVideoInfo] Update Duration',
-  UpdateCurrentTime = '[SelectVideoInfo] Update Current Time'
+  UpdateCurrentTime = '[SelectVideoInfo] Update Current Time',
+  UpdatePlaying = '[SelectVideoInfo] Update Playing'
 }
 
 export class SelectVideoInfoUpdateDuration implements Action {
@@ -17,5 +18,9 @@ export class SelectVideoInfoUpdateCurrentTime implements Action {
   constructor(public payload: number) {}
 }
 
+export class SelectVideoInfoUpdatePlaying implements Action {
+  readonly type = SelectVideoInfoActionTypes.UpdatePlaying;
 
-export type SelectVideoInfoActions = SelectVideoInfoUpdateDuration | SelectVideoInfoUpdateCurrentTime;
+}
+
+export type SelectVideoInfoActions = SelectVideoInfoUpdateDuration | SelectVideoInfoUpdateCurrentTime | SelectVideoInfoUpdatePlaying;
